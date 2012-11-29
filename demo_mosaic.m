@@ -4,8 +4,8 @@
 f1 = imread('nachtwacht1.jpg');
 f2 = imread('nachtwacht2.jpg');
 
-[xy, xaya] = pickmatchingpoints(f1, f2, 4, 1)
-
+% [xy, xaya] = pickmatchingpoints(f1, f2, 4, 1)
+RANSAC(f1,f2)
 % T = maketform('projective',xy', xaya')
 T = maketform('projective',createProjectionMatrix(xy', xaya'))
 [x y] = tformfwd(T,[1 size(f1,2)], [1 size(f1,1)]);
