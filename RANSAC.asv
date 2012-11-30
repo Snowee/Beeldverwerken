@@ -27,13 +27,12 @@ for j = 1:100
 %     perm = randi(size(DMatch,2), 1, size(DMatch,2));
     randSel = randsample(size(DMatch,2),2)
     perm = randperm(size(DMatch,2));
-    selection = [perm(randSel(1,1)),perm(randSel(2,1))];
+    selection = perm(randSel(1,1):2);
 
     XF1 = F1Coordinates(selection,1);
     YF1 = F1Coordinates(selection,2);
-    while XF1(1,1) == XF1(2,1) & YF1(1,1) == YF1(2,1)
-        randSel = randsample(size(DMatch,2),2)
-        selection = [perm(randSel(1,1)),perm(randSel(2,1))];
+    if XF1(1,1) == XF1(2,1) & YF1(1,1) == YF1(2,1)
+        selection = perm(3:4);
         XF1 = F1Coordinates(selection,1);
         YF1 = F1Coordinates(selection,2);
     end
