@@ -1,18 +1,21 @@
 function Bestform =  RANSAC( f1, f2 )
+% Adjusting images to right format
 I = single(rgb2gray(f1));
 J = single(rgb2gray(f2));
-
+% Apply SIFT function to both images, gives descriptors D and locations F 
 [F1, D1] = vl_sift(I);
 [F2, D2] = vl_sift(J);
 
-
+% Find matching descriptors from both images
 DMatch = vl_ubcmatch(D1,D2);
 
+% Matrix of ones for homogeneous coordinates
 homogeneousAppend = ones(1,size(DMatch,2));
 
 MatchF1 = DMatch(1,:);
 MatchF2 = DMatch(2,:);
 
+% Find all coordinates for the matching descriptors
 for i = 1:size(DMatch,2)
     X1F(i) = F1(1,MatchF1(i));
     Y1F(i) = F1(2,MatchF1(i));
@@ -20,11 +23,13 @@ for i = 1:size(DMatch,2)
     Y2F(i) = F2(2,MatchF2(i));
 end
 
+% Coordinates of matching points of both images
 F1Coordinates = [X1F;Y1F;homogeneousAppend]';
 F2Coordinates = [X2F;Y2F;homogeneousAppend]';
+
+% Start the best number of matches at 0
 BestMatches = 0;
 for j = 1:100
-%     perm = randi(size(DMatch,2), 1, size(DMatch,2));
     randSel = randsample(size(DMatch,2),2)
     perm = randperm(size(DMatch,2));
     selection = [perm(randSel(1,1)),perm(randSel(2,1))];
