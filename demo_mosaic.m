@@ -10,6 +10,8 @@ T = RANSAC(f1,f2);
 % Former code for handpicking corresponding points
 % [xy, xaya] = pickmatchingpoints(f1, f2, 4, 1)
 % T = maketform('projective',xy', xaya')
+
+% Former code for making projection matrix with own function
 % T = maketform('projective',createProjectionMatrix(xy', xaya'))
 
 % Transform image f1 with the transformation matrix
