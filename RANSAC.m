@@ -2,7 +2,8 @@ function Bestform =  RANSAC( f1, f2 )
 % Adjusting images to right format
 I = single(rgb2gray(f1));
 J = single(rgb2gray(f2));
-% Apply SIFT function to both images, gives descriptors D and locations F 
+% Apply SIFT function to both images, gives descriptors D and frames F
+% In F are the locations and additional info about rotation and scaling 
 [F1, D1] = vl_sift(I);
 [F2, D2] = vl_sift(J);
 
