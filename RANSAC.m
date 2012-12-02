@@ -36,6 +36,7 @@ for j = 1:100
 	% Matrix putting 1 to the number of matchpoints in random order
     perm = randperm(size(DMatch,2));
 	% Pick two descriptor indices with random values out of a random matrix
+	% Two points are used, because that is all that is needed for scaling and rotating
     selection = [perm(randSel(1,1)),perm(randSel(2,1))];
 	% Take the corresponding coordinates to the descriptors
     XF1 = F1Coordinates(selection,1);
