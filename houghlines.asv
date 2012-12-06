@@ -22,23 +22,26 @@ ntheta = size(h,2);
 % g(h>=thresh) = 1;
 
 % [BW,nregions] = bwlabel(g);
-se = strel('disk',15);
-if h>thresh & imdilate(im,se)> thresh
-    
-end
-% for n = 1: nregions
+G = gauss1(5);
+h = imfilter(h,G,'conv','replicate');
+
+se = strel('disk',8);
+maxima = (h > thresh) & (imdilate(h,se) == h);
+[maxrow,maxcolumn] = find(maxima)
+
+for n = 1:size(maxrow,1)
 %     mask = BW == n ; % Form a mask for each region .
 %     region = mask .* h ; % Point - wise multiply mask by Hough Transform
 %     % to give you an image with just one region of
 %     % the Hough Transform .
 %    	[maxval,Y] = max(region);
-%     row = max(Y);
+    row = maxrow(n);
 %     [maxval1,X] = max(maxval);
-%     column = max(X);
-%     XY = [column;row]
+    column = maxcolumn(n);
+    XY = [column;row]
     theta(n) = ((XY(1,1)*pi)/(ntheta));
     rho(n) = ((XY(2,1)*2*rhomax)/(nrho))-rhomax;
-% end
+end
 for i= 1:size(rho,2)
     [x1,y1,x2,y2] = thetarho2endpoints(theta(i),rho(i),rows,cols);
     XX(1:2,i) = [x1;x2];

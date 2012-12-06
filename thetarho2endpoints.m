@@ -1,5 +1,5 @@
 function [x1, y1, x2, y2] = thetarho2endpoints(theta, rho, rows, cols)
-if theta <= 1.66  & theta >= 1.48
+if theta <= 1.66  && theta >= 1.48
     y1 = 0;
     y2 = rows;
     x1 = rho/sin(theta);

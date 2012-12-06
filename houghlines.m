@@ -22,9 +22,12 @@ ntheta = size(h,2);
 % g(h>=thresh) = 1;
 
 % [BW,nregions] = bwlabel(g);
+G = gauss1(3);
+h = imfilter(h,G,'conv','replicate');
+
 se = strel('disk',8);
-maxima = h > thresh & imdilate(h,se) == h;
-[maxrow,maxcolumn] = find(maxima);
+maxima = (h > thresh) & (imdilate(h,se) == h);
+[maxrow,maxcolumn] = find(maxima)
 
 for n = 1:size(maxrow,1)
 %     mask = BW == n ; % Form a mask for each region .
@@ -51,8 +54,8 @@ for i = 1:size(XXYY,2)
    XYline1(1:3,i) = [XXYY(1,i);XXYY(3,i);1];
    XYline2(1:3,i) = [XXYY(2,i);XXYY(4,i);1];
    lines(1:3,i) = cross(XYline1(1:3,i),XYline2(1:3,i));
-   lines(1,i) = lines(1,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
-   lines(2,i) = lines(2,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
-   lines(3,i) = lines(3,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
+%    lines(1,i) = lines(1,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
+%    lines(2,i) = lines(2,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
+%    lines(3,i) = lines(3,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
 end
 lines

@@ -35,7 +35,7 @@ thetas = [0: dtheta :( pi - dtheta )];  % Array of theta values across the
                                         % To convert a value of rho or theta
                                         % to its appropriate index in the array use:
 [y,x] = find(EdgeIm);
-XY = [x,y]
+XY = [x,y];
 
 for i = 1:size(XY,1)
     for j = 1:size(thetas,2)
@@ -47,7 +47,8 @@ for i = 1:size(XY,1)
 end
 h = accu;                                      
 imshow(h,[]);
-
+thresh = 42;
+% houghlines(im,h,thresh)
 
 
 
