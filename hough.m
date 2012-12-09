@@ -17,7 +17,7 @@ function h=  hough ( im , Thresh , nrho , ntheta )
 % returns ;
 % h - The Hough transform
 % ...
-EdgeIm = edge( im, 'canny', Thresh )
+EdgeIm = edge( im, 'canny', Thresh );
 accu = zeros( nrho, ntheta );
 rows = size( im, 1 );
 cols = size( im, 2 );
@@ -35,7 +35,8 @@ thetas = [0: dtheta :( pi - dtheta )];  % Array of theta values across the
                                         % To convert a value of rho or theta
                                         % to its appropriate index in the array use:
 [y,x] = find(EdgeIm);
-XY = [x,y]
+XY = [x,y];
+size(XY,1)
 
 for i = 1:size(XY,1)
     for j = 1:size(thetas,2)
@@ -47,6 +48,7 @@ for i = 1:size(XY,1)
 end
 h = accu;                                      
 imshow(h,[]);
+
 
 
 
