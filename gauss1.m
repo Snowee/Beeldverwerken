@@ -7,4 +7,4 @@ X = -M : M ;
 % determine the scale
 sigma = S ;
 % calculate the Gaussian function
-G = (1/(sqrt(2*pi)*sigma))*exp(-(X.^2)/(2*(sigma^2)))
+G = (1/(sqrt(2*pi)*sigma))*exp(-(X.^2)/(2*(sigma^2)));

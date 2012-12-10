@@ -1,4 +1,4 @@
-function h=  hough ( im , Thresh , nrho , ntheta )
+function [h,EdgeIm] =  hough ( im , Thresh , nrho , ntheta )
 % HOUGH
 %
 % Function takes a grey scale image , constructs an edge map by applying
@@ -16,9 +16,16 @@ function h=  hough ( im , Thresh , nrho , ntheta )
 %
 % returns ;
 % h - The Hough transform
-% ...
+% EdgeIm - edge map created by canny edge detector
+
+% Make the edge map of the image
 EdgeIm = edge( im, 'canny', Thresh );
+
+% Initialize an accumulator matrix
 accu = zeros( nrho, ntheta );
+
+% Calculate rhomax using the maximum values of the image im and Pythagoras'
+% theorem
 rows = size( im, 1 );
 cols = size( im, 2 );
 rhomax = sqrt ( rows ^2 + cols ^2);     % The maximum possible value of rho.
@@ -28,16 +35,13 @@ drho = 2* rhomax /( nrho -1);           % The increment in rho between successiv
 dtheta = pi / ntheta ;                  % The increment in theta between entries .
 thetas = [0: dtheta :( pi - dtheta )];  % Array of theta values across the
                                         % accumulator matrix .
-                                        % ...
-                                        % for each x and y of nonzero edge values :
-                                        % for each theta in thetas :
-                                        % rho = evaluate (1)
-                                        % To convert a value of rho or theta
-                                        % to its appropriate index in the array use:
+                                        
+% Assign all edge point coordinates
 [y,x] = find(EdgeIm);
 XY = [x,y];
-size(XY,1)
 
+% Calculate all rho values and start the voting in the accumulator at the
+% indices of rho and theta
 for i = 1:size(XY,1)
     for j = 1:size(thetas,2)
         rho = XY(i,1)*sin(thetas(j)) - XY(i,2)*cos(thetas(j));
@@ -46,6 +50,7 @@ for i = 1:size(XY,1)
         accu(rhoindex,thetaindex) = accu(rhoindex,thetaindex)+1;
     end
 end
+% Assign the accumulator as the Hought Transform and show it
 h = accu;                                      
 imshow(h,[]);
 
