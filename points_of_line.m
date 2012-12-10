@@ -8,9 +8,9 @@ counter = 0;
 
 for i = 1:size(points,1)
     for j = 1:size(line,2)
-        if points(i,:)*line(:,j) <= epsilon
+        if dot(points(i,:),line(:,j)) <= epsilon
             counter = counter + 1;
-            pts(counter,:) = points(i,:)
+            pts(counter,:) = points(i,:);
         end
     end
 end

@@ -53,24 +53,24 @@ Lines = [];
 
 EdgeIm = edge( im, 'canny', 0.1 );
 [y,x] = find(EdgeIm);
-points = [maxcolumn,maxrow];
+points = [x,y];
 
 LTP1=[];
 for i = 1:size(XXYY,2)
-   line(XXYY(1:2,i),XXYY(3:4,i));
+%    line(XXYY(1:2,i),XXYY(3:4,i));
    XYline1(1:3,i) = [XXYY(1,i);XXYY(3,i);1];
    XYline2(1:3,i) = [XXYY(2,i);XXYY(4,i);1];
    c = cross(XYline1(1:3,i),XYline2(1:3,i));
    c = c/sqrt(c(1)^2 + c(2)^2);
    Lines = [Lines, c];
-   PoL = points_of_line(points, c, 300);
+   PoL = points_of_line(points, c,5);
    LTP = line_through_points(PoL);
    LTP1 = [LTP1,LTP];
 %    lines(1,i) = lines(1,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
 %    lines(2,i) = lines(2,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
 %    lines(3,i) = lines(3,i)/sqrt(lines(1,i)^2 + lines(2,i)^2);
 end
-LTP1
+LTP1;
 Lines; 
 size(PoL, 1)
 size(points, 1);
