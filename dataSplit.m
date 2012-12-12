@@ -1,4 +1,4 @@
-function [Train, Test, X] = dataSplit(data)
+function [Train, XTest, X, meanIm] = dataSplit(data)
 load(data);
 for i = 1:size(images,2)
    sizes = size(images{i}.img,2)*size(images{i}.img,1);
@@ -22,13 +22,13 @@ meanIm = TrainMean ./ 300;
 % end
 % meanIm = mean(Train.img,2)
 X = zeros(16800,300);
-
+XTest = zeros(16800,250);
 for i = 1:size(Train,2)
     X(:,i) = Train{1,i}.img - meanIm;
 end
 
 for i = 1:size(Test,2)
-    Test{1,i}.img = Test{1,i}.img -meanIm;
+    XTest(:,i) = Test{1,i}.img -meanIm;
 end
 
 end
