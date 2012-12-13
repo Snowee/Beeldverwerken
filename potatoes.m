@@ -1,8 +1,8 @@
 image = im2double(imread('potatoes12.png'));
 
 binaryPotatoes = image>0.3;
-figure
-imshow(binaryPotatoes)
+% figure
+% imshow(binaryPotatoes)
 
 % OPEN ---> Close
 erodedPotatoes = imerode(binaryPotatoes,strel('square',3));
@@ -17,5 +17,17 @@ border (1 ,:) = 1;
 border ( end ,:) = 1;
 border (: ,1) = 1;
 border (: , end ) = 1;
+
+[Row, Column] = find(openClosed == border & openClosed ~=0);
+mask = zeros(size(openClosed));
+BorderCoords = [Row,Column];
+for i = 1:size(BorderCoords,1)
+    mask(BorderCoords(i,1),BorderCoords(i,2)) = 1;
+end
+% figure
+% imshow(mask)
 figure
-openClosed(openClosed == border)
+borderPotatoe = imreconstruct(mask, openClosed)
+imshow(borderPotatoe)
+% figure
+% imshow(openClosed(openClosed == border & openClosed ~=0))
