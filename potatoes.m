@@ -27,7 +27,10 @@ end
 % figure
 % imshow(mask)
 figure
-borderPotatoe = imreconstruct(mask, openClosed)
+borderPotatoe = imreconstruct(openClosed==mask,openClosed);
 imshow(borderPotatoe)
+
+borderPotatoelessIm = openClosed-borderPotatoe;
+imshow(borderPotatoelessIm)
 % figure
 % imshow(openClosed(openClosed == border & openClosed ~=0))
