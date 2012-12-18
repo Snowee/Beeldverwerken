@@ -1,4 +1,4 @@
-function [  E, gTest, g, gComp, bestMatch ] = PCA( train, test, MeanIm, X, d,testim )
+function [  E, gTest, g, gComp, bestMatch ] = PCA( train, test, X, XTest, MeanIm, d, testim )
 load omni.mat
 [V,D] = eigs( X'*X, d );
 
@@ -25,7 +25,7 @@ EG = E*g;
 % subplot( 2, 1, 2 );
 % imshow( reshape( EG(:,1) + MeanIm, 112, 150 ) )
 
-gTest = E'*test; 
+gTest = E'*XTest; 
 % gTestIm = gTest(:,testim);
 
 
@@ -36,16 +36,35 @@ for j = 1:size( gTest, 2 )
     gComp(i,j) = dot( g(:,i), gTest(:,j) );
     end
 end
-bestMatch = zeros(1,size(test,2));
+bestMatch = zeros(1,size(XTest,2));
 for i = 1:size(gComp,2)
     [row, column] = find(gComp == max(gComp(:,i)));
     bestMatch(1,i) = row;
 end
 
 for i = 1:size(bestMatch,2)
-   MatchedPositions = images{bestMatch(1,i)}.position;    
+   MatchedPositions(i,:) = train{bestMatch(1,i)}.position;    
 end
-MatchedPostions
+
+for i = 1:size(test,2)
+    testPositions(i,:) = test{i}.position;
+end
+
+
+
+% Xtest = testPositions(:,1);
+% Ytest = testPositions(:,2);
+% 
+% size(MatchedPositions,1)
+% Xtrain = MatchedPositions(:,1);
+% Ytrain = MatchedPositions(:,2);
+% train = plot(Xtrain,Ytrain,'o');
+% hold on
+% test = plot(Xtest,Ytest,'o');
+% set(test,'Color', 'red');
+% hold off
+
+
 % gComp
 % end
 % [ row, column ] = find( gComp == max( gComp ) );

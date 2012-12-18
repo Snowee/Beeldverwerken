@@ -1,4 +1,4 @@
-function [Train, XTest, X, meanIm] = dataSplit(data)
+function [Train, Test, X, XTest, meanIm] = dataSplit(data)
 load(data);
 for i = 1:size(images,2)
    sizes = size(images{i}.img,2)*size(images{i}.img,1);
