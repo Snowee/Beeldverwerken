@@ -10,7 +10,12 @@ end
 g = E'*X;
 
 EG = E*g;
-
+% Plot eigenvalues
+% figure
+% for i = 1:size(train,2)/6
+%     eigenvalues(i) = D(i,i)
+% end
+% plot(eigenvalues)
 % Plot first ten eigenvectors
 % figure
 % for i = 1:10
